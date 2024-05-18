@@ -18,13 +18,13 @@ DWORD WINAPI ServerThread(LPVOID lpParam)
 
     if (pipe == INVALID_HANDLE_VALUE) 
     {
-        return GetLastError();
+        return -1;
     }
 
     if (!ConnectNamedPipe(pipe, NULL)) 
     {
         CloseHandle(pipe);
-        return GetLastError();
+        return -1;
     }
 
     DWORD bytesRead;
@@ -32,7 +32,7 @@ DWORD WINAPI ServerThread(LPVOID lpParam)
     if (!ReadFile(pipe, buffer, sizeof(buffer), &bytesRead, NULL)) 
     {
         CloseHandle(pipe);
-        return GetLastError();
+        return -1;
     }
 
     CloseHandle(pipe);
@@ -43,7 +43,7 @@ DWORD WINAPI ClientThread(LPVOID lpParam)
 {
     if (!WaitNamedPipeA("\\\\.\\pipe\\SquigPipe", NMPWAIT_USE_DEFAULT_WAIT)) 
     {
-        return GetLastError();
+        return -1;
     }
 
     HANDLE pipe = CreateFileA(
@@ -59,7 +59,7 @@ DWORD WINAPI ClientThread(LPVOID lpParam)
     char *buffer = (char *)VirtualAlloc(NULL, 4096, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
     if (buffer == NULL) 
     {
-        return GetLastError();
+        return -1;
     }
 
     if (fgets(buffer, 4096, stdin) == NULL) 
@@ -71,7 +71,7 @@ DWORD WINAPI ClientThread(LPVOID lpParam)
     if (!WriteFile(pipe, buffer, 4096, &bytesWritten, NULL)) 
     {
         CloseHandle(pipe);
-        return GetLastError();
+        return -1;
     }
 
     CloseHandle(pipe);
@@ -83,19 +83,19 @@ DWORD start(void)
     HANDLE serverThread = CreateThread(NULL, 0, ServerThread, NULL, 0, NULL);
     if (serverThread == NULL) 
     {
-        return GetLastError();
+        return -1;
     }
 
     HANDLE clientThread = CreateThread(NULL, 0, ClientThread, NULL, 0, NULL);
     if (clientThread == NULL) 
     {
         CloseHandle(serverThread);
-        return GetLastError();
+        return -1;
     }
 
     while (1) 
     {
-        
+
     }
     
 }
