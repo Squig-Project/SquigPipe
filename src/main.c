@@ -59,11 +59,13 @@ DWORD WINAPI ClientThread(LPVOID lpParam)
     char *buffer = (char *)VirtualAlloc(NULL, 4096, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
     if (buffer == NULL) 
     {
+        CloseHandle(pipe);
         return -1;
     }
 
     if (fgets(buffer, 4096, stdin) == NULL) 
     {
+        CloseHandle(pipe);
         return -1;
     }
 
