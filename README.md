@@ -10,11 +10,8 @@ An open source remote memory tool.
 
 ## Compiling
 To compile SquigPipe, you'll need the MSVC compiler. To anyone familiar with MSVC, compilation is straight forward, you just need to run the ```.\build.bat``` file in your developer command prompt from visual studio 2019.
-If you want to compile from source, locate the downloaded directory's ```.\src``` folder, and run the following command.
+If you want to compile from source, locate the downloaded directory's ```.\src``` folder, and run the following commands.
 
-```bash
-cd .\src
-```
 ```bash
 cl /c .\main.c 
 ```
