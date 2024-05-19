@@ -19,7 +19,7 @@ cl /c .\main.c
 link .\main.obj /out:main.exe user32.lib gdi32.lib kernel32.lib comdlg32.lib Comctl32.lib
 ```
 
-You can also directly compile all the sources into object files and link them together to an executable using the ```link``` tool from visual studio 2019.
+This compiles all the sources into object files and links them together to an executable using the ```link``` tool from visual studio 2019.
 
 ## Installation
 For a better experience, you should add the executable to your enviroment's path variable. You can also use the ```.\Squig Installer.exe``` if you don't want to compile it yourself. 
