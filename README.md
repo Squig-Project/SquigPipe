@@ -13,7 +13,13 @@ To compile SquigPipe, you'll need the MSVC compiler. To anyone familiar with MSV
 If you want to compile from source, locate the downloaded directory's ```.\src``` folder, and run the following command.
 
 ```bash
-cl .\main.c /FC /Zi /MDd /nologo user32.lib gdi32.lib kernel32.lib comdlg32.lib Comctl32.lib
+cd .\src
+```
+```bash
+cl /c .\main.c 
+```
+```bash
+link .\main.obj /out:main.exe user32.lib gdi32.lib kernel32.lib comdlg32.lib Comctl32.lib
 ```
 
 You can also directly compile all the sources into object files and link them together to an executable using the ```link``` tool from visual studio 2019.
