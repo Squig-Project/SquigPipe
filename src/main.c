@@ -29,11 +29,13 @@ DWORD WINAPI ServerThread(LPVOID lpParam)
 
     DWORD bytesRead;
     char buffer[4096];
-    if (!ReadFile(pipe, buffer, sizeof(buffer), &bytesRead, NULL)) 
+    if (!ReadFile(pipe, buffer, 4096, &bytesRead, NULL)) 
     {
         CloseHandle(pipe);
         return -1;
     }
+
+    printf("Server Output: %s", buffer);
 
     CloseHandle(pipe);
     return 0;
@@ -95,15 +97,17 @@ DWORD start(void)
         return -1;
     }
 
-    while (1) 
-    {
+    WaitForSingleObject(serverThread, INFINITE);
+    WaitForSingleObject(clientThread, INFINITE);
 
-    }
-    
+    CloseHandle(serverThread);
+    CloseHandle(clientThread);
+
+    return 0;
 }
 
 int main(void)
 {
-    
+    start();
     return 0;
 }
